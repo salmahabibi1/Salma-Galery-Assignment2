@@ -7,7 +7,7 @@ const sessions = require('client-sessions');
 const randomstring = require('randomstring');
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 const userFilePath = path.join(__dirname, 'user.json');
 
 // Configure Handlebars with custom helper
@@ -245,3 +245,6 @@ app.listen(PORT, () => {
     console.log(`Gallery server is running on http://localhost:${PORT}`);
     console.log(`You can also access it at http://127.0.0.1:${PORT}`);
 });
+
+// Export for Vercel
+module.exports = app;
