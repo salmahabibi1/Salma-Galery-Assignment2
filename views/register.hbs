@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{pageTitle}}</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 560px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            text-align: center;
+            padding: 28px 24px;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 8px;
+            letter-spacing: 0.4px;
+        }
+
+        .header h2 {
+            font-size: 1.15rem;
+            font-weight: 500;
+            opacity: 0.95;
+        }
+
+        .form-area {
+            padding: 28px 24px 26px;
+        }
+
+        .field {
+            margin-bottom: 16px;
+        }
+
+        .field input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .field input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
+        }
+
+        .error-label {
+            min-height: 22px;
+            margin-bottom: 8px;
+            color: #d63384;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .success-label {
+            min-height: 22px;
+            margin-bottom: 12px;
+            color: #2b8a3e;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .btn-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .btn {
+            border: none;
+            border-radius: 8px;
+            padding: 12px 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            text-align: center;
+            text-decoration: none;
+            line-height: 1.5;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .btn-register {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 6px 15px rgba(118, 75, 162, 0.35);
+        }
+
+        .btn-login {
+            background: #f1f3f5;
+            color: #495057;
+            border: 1px solid #dee2e6;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 0 24px 20px;
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>{{pageTitle}}</h1>
+            <h2>Account Registration</h2>
+        </div>
+
+        <div class="form-area">
+            <form method="POST" action="/register">
+                <div class="field">
+                    <input type="email" name="username" placeholder="Email" required>
+                </div>
+                <div class="field">
+                    <input type="password" name="password" placeholder="Password" required>
+                </div>
+                <div class="field">
+                    <input type="password" name="confirmPassword" placeholder="Confirm Password" required>
+                </div>
+
+                <div class="error-label">{{errorMessage}}</div>
+                <div class="success-label">{{successMessage}}</div>
+
+                <div class="btn-row">
+                    <button type="submit" class="btn btn-register">Create Account</button>
+                    <a href="/" class="btn btn-login">Back to Login</a>
+                </div>
+            </form>
+        </div>
+
+        <div class="footer">
+            <p>Create a new account and then sign in to open the gallery.</p>
+        </div>
+    </div>
+</body>
+</html>
