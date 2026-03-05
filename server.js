@@ -77,7 +77,13 @@ function readUsers() {
 }
 
 function writeUsers(users) {
-    fs.writeFileSync(userFilePath, JSON.stringify(users, null, 4), 'utf8');
+    try {
+        fs.writeFileSync(userFilePath, JSON.stringify(users, null, 4), 'utf8');
+        return true;
+    } catch (error) {
+        console.error('Cannot write to filesystem (read-only on Vercel):', error.message);
+        return false;
+    }
 }
 
 function ensureAuthenticated(req, res, next) {
@@ -180,7 +186,15 @@ app.post('/register', (req, res) => {
         }
 
         users[username] = password;
-        writeUsers(users);
+        const writeSuccess = writeUsers(users);
+
+        if (!writeSuccess) {
+            return res.status(503).render('register', {
+                pageTitle: 'Image Gallery Collection',
+                errorMessage: 'Registration is disabled on this deployment. Please use pre-configured accounts.',
+                successMessage: ''
+            });
+        }
 
         return res.status(201).render('register', {
             pageTitle: 'Image Gallery Collection',
