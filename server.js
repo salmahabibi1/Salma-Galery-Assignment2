@@ -1,3 +1,4 @@
+
 const express = require('express');
 const exphbs = require('express-handlebars');
 const fs = require('fs');
@@ -106,15 +107,8 @@ app.get('/', (req, res) => {
 });
 
 app.get('/register', (req, res) => {
-    if (req.session && req.session.user) {
-        return res.redirect('/gallery');
-    }
-
-    res.render('register', {
-        pageTitle: 'Image Gallery Collection',
-        errorMessage: '',
-        successMessage: ''
-    });
+    // Registration disabled on Vercel - redirect to login
+    res.redirect('/');
 });
 
 app.post('/login', (req, res) => {
@@ -154,61 +148,8 @@ app.post('/login', (req, res) => {
 });
 
 app.post('/register', (req, res) => {
-    const username = (req.body.username || '').trim();
-    const password = req.body.password || '';
-    const confirmPassword = req.body.confirmPassword || '';
-
-    if (!username || !password || !confirmPassword) {
-        return res.status(400).render('register', {
-            pageTitle: 'Image Gallery Collection',
-            errorMessage: 'All fields are required',
-            successMessage: ''
-        });
-    }
-
-    if (password !== confirmPassword) {
-        return res.status(400).render('register', {
-            pageTitle: 'Image Gallery Collection',
-            errorMessage: 'Passwords do not match',
-            successMessage: ''
-        });
-    }
-
-    try {
-        const users = readUsers();
-
-        if (users[username]) {
-            return res.status(409).render('register', {
-                pageTitle: 'Image Gallery Collection',
-                errorMessage: 'Username already registered',
-                successMessage: ''
-            });
-        }
-
-        users[username] = password;
-        const writeSuccess = writeUsers(users);
-
-        if (!writeSuccess) {
-            return res.status(503).render('register', {
-                pageTitle: 'Image Gallery Collection',
-                errorMessage: 'Registration is disabled on this deployment. Please use pre-configured accounts.',
-                successMessage: ''
-            });
-        }
-
-        return res.status(201).render('register', {
-            pageTitle: 'Image Gallery Collection',
-            errorMessage: '',
-            successMessage: 'Account created successfully. You can now login.'
-        });
-    } catch (error) {
-        console.error('Error during registration:', error);
-        return res.status(500).render('register', {
-            pageTitle: 'Image Gallery Collection',
-            errorMessage: 'Server error during registration',
-            successMessage: ''
-        });
-    }
+    // Registration disabled on Vercel - redirect to login
+    res.redirect('/');
 });
 
 app.get('/gallery', ensureAuthenticated, async (req, res) => {
